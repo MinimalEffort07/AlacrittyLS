@@ -1,25 +1,11 @@
 from pygls.server import LanguageServer
 from lsprotocol import types
+from configuration import config
 import logging
+
 
 logging.basicConfig(filename="pygls.log", filemode="w", level=logging.DEBUG)
 log = logging.getLogger(__name__)
-
-state = {
-    "general": {
-        "import": [None],
-        "working_directory": ["'None'", None],
-        "live_config_reload": ["true", "false"],
-        "ipc_socket": ["true", "false"],
-    },
-    "env": [None],
-    "window": {
-        "dimensions": {
-            "columns": [None],
-            "lines": [None],
-        }
-    },
-}
 
 server = LanguageServer("Alacritty-LanguageServer", "v0.1")
 
@@ -51,7 +37,7 @@ def get_section(params, document):
     log.debug(f"depth: {dictionary_depth}")
 
     level = 0
-    sub_section = state
+    sub_section = config
 
     try:
         while level < dictionary_depth:
