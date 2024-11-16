@@ -4,7 +4,7 @@ from lsprotocol import types
 from configuration import config
 import logging
 
-FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+FORMAT = "[ %(filename)s:%(lineno)s - %(funcName)s() ] %(message)s"
 logging.basicConfig(filename="pygls.log", filemode="w", level=logging.DEBUG, format=FORMAT)
 
 log = logging.getLogger(__name__)
