@@ -97,7 +97,7 @@ def get_nested_dict_value(dictionary: dict, keys: str):
 
 @server.feature(
     types.TEXT_DOCUMENT_COMPLETION,
-    types.CompletionOptions(trigger_characters=["="])
+    types.CompletionOptions(trigger_characters=["=", ".", "["])
 )
 def completions(params: types.CompletionParams) -> list:
     """
