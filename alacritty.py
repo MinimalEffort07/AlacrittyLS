@@ -27,7 +27,7 @@ def get_toml_section(params: types.CompletionParams, document: TextDocument) -> 
     line = params.position.line
 
     while line >= 0 and document.lines[line][0] != "[":
-        log.debug(f"Not the section line: {line}: {document.lines[line]}")
+        log.debug(f"Not the section line: {line}: {document.lines[line]}".encode("unicode_escape").decode("utf-8"))
         line -= 1
 
     if line < 0:
