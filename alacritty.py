@@ -4,7 +4,7 @@ from lsprotocol import types
 from configuration import config
 import logging
 
-FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+FORMAT = "[ %(filename)s:%(lineno)s - %(funcName)s() ] %(message)s"
 logging.basicConfig(filename="pygls.log", filemode="w", level=logging.DEBUG, format=FORMAT)
 
 log = logging.getLogger(__name__)
@@ -27,7 +27,7 @@ def get_toml_section(params: types.CompletionParams, document: TextDocument) -> 
     line = params.position.line
 
     while line >= 0 and document.lines[line][0] != "[":
-        log.debug(f"Not the section line: {line}: {document.lines[line]}")
+        log.debug(f"Not the section line: {line}: {document.lines[line]}".encode("unicode_escape").decode("utf-8"))
         line -= 1
 
     if line < 0:
@@ -97,7 +97,7 @@ def get_nested_dict_value(dictionary: dict, keys: str):
 
 @server.feature(
     types.TEXT_DOCUMENT_COMPLETION,
-    types.CompletionOptions(trigger_characters=["="])
+    types.CompletionOptions(trigger_characters=["=", ".", "["])
 )
 def completions(params: types.CompletionParams) -> list:
     """
