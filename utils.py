@@ -1,9 +1,29 @@
 from log import log
 
+def get_current_word(line: str, index: int) -> str:
+    """
+    Gets the word the index is within for the given line and index.
+    Assumes words in the line are space delimited.
+
+    Args:
+        line: The line text
+        index: The position within the line
+    Returns:
+        The word the index is within
+    """
+    while(index >= 0 and line[index] != ' '):
+        index -= 1
+
+    if index != 0:
+        index += 1
+
+    return line[index:].partition(' ')[0]
+
+
 def get_toml_section(line_number: int, document: list[str]) -> str:
     """
-    Gets the first TOML section definition encoutered, beginning from the current line and
-    searching upwards.
+    Gets the first TOML section definition encoutered, beginning from current line and searching
+    upwards.
 
     Args:
         line_number: The current line being edited in the file
@@ -12,8 +32,13 @@ def get_toml_section(line_number: int, document: list[str]) -> str:
         A string representing the TOML section value without the enclosing square brackes, or an
         empty string on failure.
     """
+
     while line_number >= 0 and document[line_number][0] != "[":
-        log.debug(f"Not the section line: {line_number}: {document[line_number]}".encode("unicode_escape").decode("utf-8"))
+        log.debug(
+            f"Not the section line: {line_number}: {document[line_number]}"
+            .encode("unicode_escape")
+            .decode("utf-8")
+        )
         line_number -= 1
 
     if line_number < 0:
