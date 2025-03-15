@@ -1,3 +1,11 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "AlacrittyLS"
 version = "0.1"
+
+dependencies = [
+    "pygls==2.0.0a1"
+]
